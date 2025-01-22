@@ -1,14 +1,16 @@
-import React from 'react';
-import MenuIcon from '@mui/icons-material/Menu';
-import AppBar from '@mui/material/AppBar';
+import * as React from 'react';
+import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import { styled, useTheme } from '@mui/material/styles';
+import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import 'leaflet/dist/leaflet.css';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { MapContainer, TileLayer } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 import Home from './Home';
 
 const drawerWidth = 400;
@@ -26,6 +28,14 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     height: `calc(100vh - 128px)`, // Fixed height to fit below AppBars
   })
 );
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  ...theme.mixins.toolbar,
+  justifyContent: 'flex-start',
+}));
 
 export default function MapWithDrawer() {
   const theme = useTheme();
@@ -74,6 +84,7 @@ export default function MapWithDrawer() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
+          
         </MapContainer>
       </Main>
 
@@ -81,12 +92,10 @@ export default function MapWithDrawer() {
       <Drawer
         sx={{
           width: drawerWidth,
+          top: "300px",
           flexShrink: 0,
           '& .MuiDrawer-paper': {
             width: drawerWidth,
-            boxSizing: 'border-box',
-            padding: 2, // Add some padding for content
-            overflow: 'auto', // Allow scroll for long content
           },
         }}
         variant="persistent"
